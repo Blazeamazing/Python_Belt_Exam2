@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Friends</title>
+</head>
+<body>
+    <a href="{% url 'logout' %}">Logout</a>
+    <h1>Hello, {{ current_user.alias }}!</h1>
+    <h3>Here is a list of your friends:</h3>
+
+    <h3>My Friends:</h3>
+    {% for friend in friends %}
+        <p><a href="{% url 'profile' %}">{{ friend.alias }}</a></p>
+        <!--Remove friend is very similar consept to adding-->
+        <!--this is what used to be here: /remove-friend/{{ friend.id }}-->
+        <!--now we need the route parameter: id= -->
+        <form action="{% url 'remove-friend' id=friend.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Remove Friend!" />
+        </form>
+    {% endfor %}
+
+    <h3>Potential Friends:</h3>
+    {% for user in users %}
+    <!--output some user stuff and move on with you life lol-->
+        <p><a href="{% url 'profile' %}">{{ user.alias }}</a></p>
+        <!--current user is going to be adding friends-->
+        <form action="{% url 'add-friend' id=user.id %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Add as Friend!" />
+        </form>
+    {% endfor %}
+</body>
+</html>

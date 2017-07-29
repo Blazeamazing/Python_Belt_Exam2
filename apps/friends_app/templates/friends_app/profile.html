@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Profile</title>
+</head>
+<body>
+<!--Go Home Button-->
+    <form action="{% url 'success' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Home" />
+    </form>
+<!--Logout Button-->
+    <form action="{% url 'logout' %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="Logout" />
+    </form>
+    {% for user in users %}
+<!--Profile View-->
+        <h1>{{ current_user.alias }}</h1>
+        <h3>{{ current_user.name }}</h3>
+        <h3>{{ current_user.email }}</h3>
+    {% endfor %}
+</body>
+</html>
